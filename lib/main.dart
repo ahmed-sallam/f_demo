@@ -1,7 +1,84 @@
+import 'application.dart';
+import 'translations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
 
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => new _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  SpecificLocalizationDelegate _localeOverrideDelegate;
+  GlobalWidgetsLocalizations _localeOverrideDelegate2;
+
+  @override
+  void initState() {
+    super.initState();
+    _localeOverrideDelegate = new SpecificLocalizationDelegate(null);
+    _localeOverrideDelegate2 = new GlobalWidgetsLocalizations(null);
+
+    ///
+    /// Let's save a pointer to this method, should the user wants to change its language
+    /// We would then call: applic.onLocaleChanged(new Locale('en',''));
+    ///
+    applic.onLocaleChanged = onLocaleChange;
+  }
+
+  onLocaleChange(Locale locale) {
+    setState(() {
+      _localeOverrideDelegate = new SpecificLocalizationDelegate(locale);
+      _localeOverrideDelegate2 = new GlobalWidgetsLocalizations(locale);
+    });
+  }
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      title: 'My Application',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      localizationsDelegates: [
+        _localeOverrideDelegate,
+        // _localeOverrideDelegate2.delegate,
+        const TranslationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: applic.supportedLocales(),
+      home: new MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(Translations.of(context).text('main_title')),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print("aaaaaaa");
+          applic.onLocaleChanged(Locale('en'));
+        },
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ),
+      body: new Container(),
+    );
+  }
+}
+/*
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -109,3 +186,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+*/
