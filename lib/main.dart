@@ -1,10 +1,17 @@
+import 'dart:math';
+
+import 'package:f_demo/application.dart' as prefix0;
+
 import 'application.dart';
 import 'translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'my_app.dart';
+
 void main() => runApp(MyApp());
 
+/*
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => new _MyAppState();
@@ -12,32 +19,40 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   SpecificLocalizationDelegate _localeOverrideDelegate;
-  GlobalWidgetsLocalizations _localeOverrideDelegate2;
+  int _key;
 
   @override
   void initState() {
     super.initState();
     _localeOverrideDelegate = new SpecificLocalizationDelegate(null);
-    _localeOverrideDelegate2 = new GlobalWidgetsLocalizations(null);
 
     ///
     /// Let's save a pointer to this method, should the user wants to change its language
     /// We would then call: applic.onLocaleChanged(new Locale('en',''));
     ///
     applic.onLocaleChanged = onLocaleChange;
+    _collapse();
   }
 
   onLocaleChange(Locale locale) {
     setState(() {
       _localeOverrideDelegate = new SpecificLocalizationDelegate(locale);
-      _localeOverrideDelegate2 = new GlobalWidgetsLocalizations(locale);
+      _collapse();
     });
+  }
+
+  _collapse() {
+    int newKey;
+    do {
+      _key = new Random().nextInt(10000);
+    } while (newKey == _key);
   }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      key: new Key(_key.toString()),
       title: 'My Application',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
@@ -78,6 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+*/
+
 /*
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
