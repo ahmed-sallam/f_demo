@@ -6,14 +6,35 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text(
+          'ترتيب',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        icon: Icon(
+          Icons.sort,
+          color: Colors.black,
+        ),
+        backgroundColor: Colors.white,
+        onPressed: () {},
+      ),
       appBar: AppBar(
         centerTitle: true,
-        title: Text('My Home Page'),
-        bottom: PreferredSize(
-          preferredSize: null,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[],
+        title: TextField(
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            prefixIcon: Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+            hintText: 'What would you like to discover?',
+            hintStyle: TextStyle(
+                fontFamily: 'Opensans',
+                fontSize: 15.0,
+                color: Colors.grey.withOpacity(0.7)),
           ),
         ),
       ),
